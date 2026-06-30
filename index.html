@@ -20,9 +20,9 @@
       --bg-card-hover: rgba(255,255,255,0.07);
       --border: rgba(255,255,255,0.08);
       --border-gold: rgba(184,134,11,0.35);
-      --text-primary: #F5F5F0;
-      --text-secondary: rgba(245,245,240,0.55);
-      --text-muted: rgba(245,245,240,0.35);
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255,255,255,0.78);
+      --text-muted: rgba(255,255,255,0.58);
       --radius: 16px;
       --radius-sm: 10px;
       --radius-pill: 999px;
@@ -264,6 +264,7 @@
     }
     .section-sub {
       font-size: 1.05rem;
+      font-weight: 600;
       color: var(--text-secondary);
       max-width: 560px;
       line-height: 1.7;
@@ -288,14 +289,23 @@
       justify-content: center;
       gap: 8px;
       font-family: var(--font-body);
-      font-weight: 600;
+      font-weight: 700;
       border-radius: var(--radius-pill);
       transition: all var(--transition);
       cursor: pointer;
       text-decoration: none;
+      text-align: center;
     }
+    .btn svg { flex-shrink: 0; }
     .btn-lg { padding: 14px 28px; font-size: 0.95rem; }
     .btn-md { padding: 11px 22px; font-size: 0.875rem; }
+    .btn-wrap-safe {
+      border-radius: var(--radius);
+      align-items: flex-start;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .btn-wrap-safe svg { margin-top: 3px; }
     .btn-primary {
       background: linear-gradient(135deg, var(--gold), var(--gold-bright));
       color: #000;
@@ -375,6 +385,7 @@
     }
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 600;
       color: var(--text-secondary);
       line-height: 1.7;
       max-width: 540px;
@@ -396,7 +407,7 @@
       color: var(--gold);
       line-height: 1;
     }
-    .hero-stat-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+    .hero-stat-label { font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-top: 4px; }
 
     .ticker-wrap {
       overflow: hidden;
@@ -451,6 +462,7 @@
       padding: 16px 20px;
       margin-top: 1.5rem;
       font-size: 0.85rem;
+      font-weight: 600;
       color: var(--text-secondary);
       line-height: 1.6;
     }
@@ -493,7 +505,7 @@
       margin-bottom: 1.25rem;
     }
     .edu-card-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
-    .edu-card-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+    .edu-card-text { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); line-height: 1.7; }
 
     .roadmap {
       position: relative;
@@ -525,7 +537,7 @@
       z-index: 1;
     }
     .roadmap-content h4 { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
-    .roadmap-content p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+    .roadmap-content p { font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); line-height: 1.65; }
 
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
     .feature-card {
@@ -549,12 +561,13 @@
       justify-content: center;
     }
     .feature-name { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
-    .feature-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+    .feature-desc { font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); line-height: 1.65; }
 
     #broker { background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 60%); }
     .broker-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .copytrading-inner { grid-template-columns: 1.1fr 0.9fr; }
     .broker-points { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
-    .broker-points li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+    .broker-points li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); line-height: 1.6; }
     .broker-check {
       flex-shrink: 0;
       width: 20px; height: 20px;
@@ -587,7 +600,7 @@
       flex-shrink: 0;
     }
     .broker-stat-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1; }
-    .broker-stat-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px; }
+    .broker-stat-label { font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); margin-top: 3px; }
 
     #calculator { background: linear-gradient(180deg, rgba(212,175,55,0.03) 0%, transparent 100%); }
     .calc-wrapper { max-width: 780px; margin: 0 auto; }
@@ -610,7 +623,7 @@
       color: var(--text-muted);
       margin-bottom: 6px;
     }
-    .calc-field .field-hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+    .calc-field .field-hint { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-top: 4px; font-style: italic; }
     .calc-field input[type="number"] {
       width: 100%;
       padding: 10px 14px;
@@ -652,7 +665,7 @@
     .pnl-amount.profit { color: #4ade80; }
     .pnl-amount.loss { color: #f87171; }
     .pnl-amount.zero { color: var(--text-muted); }
-    .pnl-per-pip { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+    .pnl-per-pip { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-top: 6px; }
     .calc-explain {
       display: flex;
       align-items: flex-start;
@@ -707,7 +720,7 @@
     .faq-item.open .faq-icon { background: var(--gold); border-color: var(--gold); transform: rotate(45deg); }
     .faq-item.open .faq-icon svg { stroke: #000; }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
-    .faq-a-inner { padding: 0 1.5rem 1.25rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+    .faq-a-inner { padding: 0 1.5rem 1.25rem; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); line-height: 1.7; }
     .faq-item.open .faq-a { max-height: 300px; }
 
     .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
@@ -761,7 +774,7 @@
     .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; }
     .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
     .footer-links a:hover { color: var(--text-secondary); }
-    .footer-disclaimer { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; max-width: 820px; }
+    .footer-disclaimer { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); line-height: 1.7; max-width: 820px; }
     .footer-bottom {
       display: flex;
       flex-wrap: wrap;
@@ -770,7 +783,7 @@
       gap: 1rem;
       margin-top: 2rem;
     }
-    .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-copy { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); }
     .footer-tagline { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; font-style: italic; }
 
     @media (max-width: 900px) {
@@ -793,6 +806,7 @@
       .social-grid { grid-template-columns: 1fr 1fr; }
       .hero-cta-group { flex-direction: column; align-items: flex-start; }
       .hero-cta-group .btn { width: 100%; justify-content: center; }
+      .copytrading-inner .btn { width: 100%; }
     }
     @media (max-width: 480px) {
       .features-grid { grid-template-columns: 1fr; }
@@ -1123,7 +1137,7 @@
         <div class="fade-in">
           <span class="eyebrow" data-i18n="broker_eyebrow">Our Recommended Broker</span>
           <h2 class="section-title" data-i18n="broker_title">Why We Trade with ACCM</h2>
-          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;" data-i18n="broker_sub">After evaluating dozens of brokers, GoldForge FX recommends ACCM for our community. Here's why — no exaggeration, just the facts.</p>
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;" data-i18n="broker_sub">After evaluating dozens of brokers, GoldForge FX recommends ACCM for our community. Here's why — no exaggeration, just the facts.</p>
         </div>
         <ul class="broker-points fade-in fade-in-delay-1">
           <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp1">Regulated and licensed — your funds are held in segregated accounts with proper oversight.</span></li>
@@ -1132,7 +1146,7 @@
           <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp4">Fast deposits and withdrawals — your money moves quickly, without unnecessary delays.</span></li>
           <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp5">Low minimum deposits — ideal for testing your strategies and building emotional discipline with real market exposure.</span></li>
         </ul>
-        <div class="fade-in fade-in-delay-2" style="padding: 1rem; background: var(--gold-muted); border: 1px solid var(--border-gold); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+        <div class="fade-in fade-in-delay-2" style="padding: 1rem; background: var(--gold-muted); border: 1px solid var(--border-gold); border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; color: var(--text-primary); line-height: 1.6; margin-bottom: 1.5rem;">
           <strong style="color: var(--gold);" data-i18n="disclosure_label">Affiliate Disclosure:</strong>
           <span data-i18n="disclosure_text"> GoldForge FX uses an affiliate link for ACCM. If you open an account through our link, we may receive a commission. This does not affect your trading conditions or the fees you pay.</span>
         </div>
@@ -1174,7 +1188,7 @@
       <p class="section-sub" data-i18n="ct_sub">Prefer to let an experienced trader manage the execution? Our copy trading service mirrors trades directly to your account in real time.</p>
     </div>
 
-    <div class="broker-inner" style="grid-template-columns: 1.1fr 0.9fr;">
+    <div class="broker-inner copytrading-inner">
       <div>
         <ul class="broker-points fade-in fade-in-delay-1">
           <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="ctp1">Trades are copied automatically to your account — no need to watch charts all day.</span></li>
@@ -1183,14 +1197,14 @@
           <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="ctp4">Ideal for busy individuals who want gold market exposure without active trading.</span></li>
         </ul>
 
-        <div class="fade-in fade-in-delay-2" style="padding: 1rem; background: var(--gold-muted); border: 1px solid var(--border-gold); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+        <div class="fade-in fade-in-delay-2" style="padding: 1rem; background: var(--gold-muted); border: 1px solid var(--border-gold); border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; color: var(--text-primary); line-height: 1.6; margin-bottom: 1.5rem;">
           <strong style="color: var(--gold);" data-i18n="ct_risk_label">Risk Disclaimer:</strong>
           <span data-i18n="ct_risk_text"> Copy trading does not guarantee profits. Only invest money you can afford to lose. Past performance of copied trades is not indicative of future results.</span>
         </div>
 
-        <a href="#contact" class="btn btn-primary btn-lg fade-in fade-in-delay-3">
+        <a href="#contact" class="btn btn-primary btn-lg btn-wrap-safe fade-in fade-in-delay-3">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-          <span data-i18n="ct_cta">Message Us on Instagram for Details</span>
+          <span data-i18n="ct_cta">Message Us on Instagram</span>
         </a>
       </div>
 
@@ -1401,8 +1415,8 @@
     <div class="footer-bottom">
       <div class="footer-copy" id="footer-copy">© 2026 GoldForge FX. All rights reserved.</div>
       <div style="display: flex; gap: 1.5rem;">
-        <a href="#" style="font-size: 0.78rem; color: var(--text-muted);" data-i18n="footer_privacy">Privacy Policy</a>
-        <a href="#" style="font-size: 0.78rem; color: var(--text-muted);" data-i18n="footer_terms">Terms of Use</a>
+        <a href="#" style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);" data-i18n="footer_privacy">Privacy Policy</a>
+        <a href="#" style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);" data-i18n="footer_terms">Terms of Use</a>
       </div>
     </div>
   </div>
@@ -1417,7 +1431,7 @@ const CONFIG = {
   telegram: "",
   facebook: "",
   instagram: "https://www.instagram.com/k.rzxx?igsh=MTRyZXpidGoyaTVrbw%3D%3D&utm_source=qr",
-  instagram2: "https://www.instagram.com/mico___sangco",
+  instagram2: "https://www.instagram.com/mico____sangco ",
   tiktok: "",
   email: "",
   logoText: "GoldForge FX",
@@ -1478,7 +1492,7 @@ const LANG = {
     ctp4: "Ideal for busy individuals who want gold market exposure without active trading.",
     ct_risk_label: "Risk Disclaimer:",
     ct_risk_text: " Copy trading does not guarantee profits. Only invest money you can afford to lose. Past performance of copied trades is not indicative of future results.",
-    ct_cta: "Message Us on Instagram for Details",
+    ct_cta: "Message Us on Instagram",
     ct_stat1_label: "Minimum to Start Copying",
     ct_stat2_num: "Hands-Off", ct_stat2_label: "Trades Copied Automatically",
     ct_stat3_num: "Risk Applies", ct_stat3_label: "Trading Involves Real Risk",
@@ -1571,7 +1585,7 @@ const LANG = {
     ctp4: "Perfect para sa mga busy na gustong ma-expose sa gold market nang hindi aktibong nagte-trade.",
     ct_risk_label: "Risk Disclaimer:",
     ct_risk_text: " Hindi ginagarantiya ng copy trading ang kita. Mag-invest lamang ng perang afford mong mawala. Ang past performance ng mga na-copy na trade ay hindi guarantee ng future results.",
-    ct_cta: "Mag-message sa Instagram Para sa Detalye",
+    ct_cta: "Mag-message sa Instagram",
     ct_stat1_label: "Minimum Para Magsimula",
     ct_stat2_num: "Hands-Off", ct_stat2_label: "Awtomatikong Kino-copy ang Trades",
     ct_stat3_num: "May Risk", ct_stat3_label: "May Totoong Risk sa Trading",
