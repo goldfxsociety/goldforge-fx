@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">GoldForge FX</title>
+  <meta name="description" content="Learn Forex trading, understand gold markets, and grow alongside a premium trading academy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold: #B8860B;
+      --gold-bright: #DAA520;
+      --gold-muted: rgba(184,134,11,0.15);
+      --gold-glow: rgba(184,134,11,0.4);
+      --bg: #000000;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border-gold: rgba(184,134,11,0.35);
+      --text-primary: #F5F5F0;
+      --text-secondary: rgba(245,245,240,0.55);
+      --text-muted: rgba(245,245,240,0.35);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-pill: 999px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+      --font-display: 'Archivo Black', 'Manrope', system-ui, sans-serif;
+      --font-body: 'Manrope', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+    }
+
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    #navbar.scrolled {
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      text-shadow: 0 0 8px var(--gold-glow), 0 0 18px var(--gold-glow);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .lang-switcher {
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      letter-spacing: 0.03em;
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: #000;
+    }
+    .btn-nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--gold);
+      color: #000;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: var(--radius-pill);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover {
+      background: var(--gold-bright);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px var(--gold-glow);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+    }
+    .hamburger span {
+      width: 22px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5% 2rem;
+      z-index: 999;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #sticky-cta {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 998;
+      display: none;
+    }
+    #sticky-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      color: #000;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 8px 32px var(--gold-glow);
+      white-space: nowrap;
+    }
+
+    #back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    #back-top:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    #back-top:hover svg { stroke: #000; }
+    #back-top.visible { display: flex; }
+
+    section { position: relative; z-index: 1; }
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+    .section-pad { padding: 100px 0; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4.6vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+    .fade-in-delay-5 { transition-delay: 0.5s; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      transition: all var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-lg { padding: 14px 28px; font-size: 0.95rem; }
+    .btn-md { padding: 11px 22px; font-size: 0.875rem; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      color: #000;
+      box-shadow: 0 4px 20px var(--gold-glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--gold-glow); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .btn-ghost {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-ghost:hover { background: var(--bg-card-hover); border-color: var(--border-gold); transform: translateY(-2px); }
+
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 30%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 800px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-muted);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-pill);
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--gold-bright);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6.2vw, 4.4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta-group { display: flex; flex-wrap: wrap; gap: 0.875rem; align-items: center; }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-stat-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+
+    .ticker-wrap {
+      overflow: hidden;
+      background: rgba(212,175,55,0.06);
+      border-top: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 12px 0;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3rem;
+      width: max-content;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      color: var(--text-secondary);
+    }
+    .ticker-sym { color: var(--gold); }
+    .ticker-up { color: #4ade80; }
+    .ticker-down { color: #f87171; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    #market .tradingview-widget-wrapper {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 0 40px rgba(212,175,55,0.08);
+      height: 500px;
+    }
+    #market .tradingview-widget-container { height: 100% !important; width: 100% !important; }
+    @media (max-width: 768px) {
+      #market .tradingview-widget-wrapper { height: 420px; }
+      #market .tradingview-widget-container { height: 420px !important; }
+    }
+    @media (max-width: 480px) {
+      #market .tradingview-widget-wrapper { height: 340px; }
+      #market .tradingview-widget-container { height: 340px !important; }
+    }
+    .market-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--gold-muted);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .market-note-icon { flex-shrink: 0; color: var(--gold); margin-top: 2px; }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .edu-card:hover { background: var(--bg-card-hover); border-color: var(--border-gold); transform: translateY(-4px); }
+    .edu-card:hover::before { opacity: 1; }
+    .edu-card-icon {
+      width: 48px; height: 48px;
+      background: var(--gold-muted);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .edu-card-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .edu-card-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+    .roadmap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 22px; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold), rgba(212,175,55,0.1));
+    }
+    .roadmap-step { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.75rem 0; position: relative; }
+    .roadmap-step:last-child { padding-bottom: 0; }
+    .roadmap-num {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      background: var(--bg);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+      z-index: 1;
+    }
+    .roadmap-content h4 { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .roadmap-content p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .feature-card:hover { background: var(--bg-card-hover); border-color: var(--border-gold); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .feature-icon {
+      width: 44px; height: 44px;
+      background: var(--gold-muted);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-name { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
+    .feature-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+
+    #broker { background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 60%); }
+    .broker-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .broker-points { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
+    .broker-points li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+    .broker-check {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      background: var(--gold-muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .broker-visual { display: flex; flex-direction: column; gap: 1rem; }
+    .broker-stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all var(--transition);
+    }
+    .broker-stat-card:hover { border-color: var(--border-gold); background: var(--bg-card-hover); }
+    .broker-stat-icon {
+      width: 48px; height: 48px;
+      background: var(--gold-muted);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .broker-stat-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .broker-stat-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px; }
+
+    #calculator { background: linear-gradient(180deg, rgba(212,175,55,0.03) 0%, transparent 100%); }
+    .calc-wrapper { max-width: 780px; margin: 0 auto; }
+    .calc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(212,175,55,0.06);
+    }
+    .calc-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .calc-inputs { padding: 2rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 1.25rem; }
+    .calc-results { padding: 2rem; background: rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 1rem; }
+    .calc-field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .calc-field .field-hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+    .calc-field input[type="number"] {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: border-color var(--transition);
+      -moz-appearance: textfield;
+    }
+    .calc-field input[type="number"]::-webkit-outer-spin-button,
+    .calc-field input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .calc-field input[type="number"]:focus { outline: none; border-color: var(--gold); }
+    .direction-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .dir-btn {
+      padding: 10px 0;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .dir-btn.active-buy { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.4); color: #4ade80; }
+    .dir-btn.active-sell { background: rgba(248,113,113,0.12); border-color: rgba(248,113,113,0.4); color: #f87171; }
+    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+    .result-value { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); }
+    .pnl-display { margin-top: auto; padding-top: 1.5rem; text-align: center; }
+    .pnl-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .pnl-amount { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; transition: color var(--transition); }
+    .pnl-amount.profit { color: #4ade80; }
+    .pnl-amount.loss { color: #f87171; }
+    .pnl-amount.zero { color: var(--text-muted); }
+    .pnl-per-pip { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+    .calc-explain {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--gold-muted);
+      border: 1px solid var(--border-gold);
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 14px 20px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+      .calc-body { grid-template-columns: 1fr; }
+      .calc-inputs { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    .faq-list { display: flex; flex-direction: column; gap: 1px; }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: border-color var(--transition);
+      margin-bottom: 0.75rem;
+    }
+    .faq-item.open { border-color: var(--border-gold); }
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      background: none;
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+    .faq-item.open .faq-icon { background: var(--gold); border-color: var(--gold); transform: rotate(45deg); }
+    .faq-item.open .faq-icon svg { stroke: #000; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+    .faq-a-inner { padding: 0 1.5rem 1.25rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+    .social-card:hover { background: var(--bg-card-hover); border-color: var(--border-gold); transform: translateY(-3px); }
+    .social-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .social-icon.tg { background: rgba(39,151,255,0.15); }
+    .social-icon.fb { background: rgba(66,103,178,0.15); }
+    .social-icon.ig { background: rgba(225,48,108,0.15); }
+    .social-icon.tk { background: rgba(255,255,255,0.08); }
+    .social-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+    .social-handle { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-top: 2px; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    footer { position: relative; z-index: 1; padding: 3rem 5%; border-top: 1px solid var(--border); }
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      text-shadow: 0 0 6px var(--gold-glow), 0 0 14px var(--gold-glow);
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+    .footer-disclaimer { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; max-width: 820px; }
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-tagline { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+
+    @media (max-width: 900px) {
+      .broker-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #sticky-cta { display: block; }
+      .btn-nav-cta { display: none; }
+    }
+    @media (max-width: 600px) {
+      .section-pad { padding: 70px 0; }
+      .hero-title { font-size: 2.4rem; }
+      .hero-stats { gap: 1.25rem; }
+      .broker-visual { display: none; }
+      #back-top { bottom: 5.5rem; }
+    }
+    @media (max-width: 768px) {
+      .edu-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .social-grid { grid-template-columns: 1fr 1fr; }
+      .hero-cta-group { flex-direction: column; align-items: flex-start; }
+      .hero-cta-group .btn { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
+      .lang-switcher { display: none; }
+      .hero-stats { flex-wrap: wrap; gap: 1rem; }
+      .hero-stat-item { min-width: 120px; }
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .fade-in { opacity: 1; transform: none; }
+      .fade-in.visible { opacity: 1; transform: none; }
+      #particles-canvas { display: none; }
+      .ticker-track { animation: none; }
+    }
+
+    .btn svg { transition: transform var(--transition); }
+    .btn:hover svg { transform: translateX(3px); }
+    .btn-outline:hover svg, .btn-ghost:hover svg { transform: translateX(0) scale(1.1); }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #hero .fade-in { animation: heroFadeUp 0.8s ease forwards; opacity: 0; }
+    #hero .fade-in-delay-1 { animation-delay: 0.15s; }
+    #hero .fade-in-delay-2 { animation-delay: 0.3s; }
+    #hero .fade-in-delay-3 { animation-delay: 0.45s; }
+    #hero .fade-in-delay-4 { animation-delay: 0.6s; }
+
+    ::selection { background: var(--gold-muted); color: var(--gold-bright); }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<canvas id="particles-canvas"></canvas>
+
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" id="nav-logo-text">GoldForge FX</a>
+  <ul class="nav-links">
+    <li><a href="#learn" data-i18n="nav_learn">Learn</a></li>
+    <li><a href="#features" data-i18n="nav_why">Why Us</a></li>
+    <li><a href="#broker" data-i18n="nav_broker">ACCM</a></li>
+    <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher" role="group" aria-label="Language switcher">
+      <button class="lang-btn active" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-btn" onclick="setLang('fil')">🇵🇭 FIL</button>
+    </div>
+    <a href="#" id="nav-cta-btn" class="btn-nav-cta" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span data-i18n="cta_open">Open an Account</span>
+    </a>
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-menu" role="menu">
+  <a href="#learn" onclick="toggleMenu()" data-i18n="nav_learn">Learn</a>
+  <a href="#features" onclick="toggleMenu()" data-i18n="nav_why">Why Us</a>
+  <a href="#broker" onclick="toggleMenu()" data-i18n="nav_broker">ACCM</a>
+  <a href="#faq" onclick="toggleMenu()" data-i18n="nav_faq">FAQ</a>
+  <a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">Contact</a>
+  <a href="#" id="mobile-cta" target="_blank" rel="noopener" style="color: var(--gold); font-weight: 700;" data-i18n="cta_open">Open anAccount →</a>
+  <div style="display:flex; gap: 0.75rem; align-items: center; padding-top: 0.5rem;">
+    <span style="font-size:0.75rem; color: var(--text-muted);">Language:</span>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-btn" onclick="setLang('fil')">🇵🇭 FIL</button>
+    </div>
+  </div>
+</div>
+
+<div id="sticky-cta">
+  <a href="#" id="sticky-cta-link" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <span data-i18n="cta_open">Open an Account</span>
+  </a>
+</div>
+
+<button id="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge fade-in">
+      <span class="hero-badge-dot"></span>
+      <span data-i18n="hero_badge">Live Trading Community</span>
+    </div>
+    <h1 class="hero-title fade-in fade-in-delay-1">
+      <span data-i18n="hero_title_1">Trade Gold.</span><br>
+      <em data-i18n="hero_title_2">Build Wealth.</em><br>
+      <span data-i18n="hero_title_3">Grow Together.</span>
+    </h1>
+    <p class="hero-sub fade-in fade-in-delay-2" data-i18n="hero_sub">
+      GoldForge FX guides beginners and experienced traders through the world of Forex and gold markets — with free education, expert signals, and a community that actually helps each other win.
+    </p>
+    <div class="hero-cta-group fade-in fade-in-delay-3">
+      <a href="#learn" class="btn btn-outline btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span data-i18n="cta_learn">Learn Forex</span>
+      </a>
+      <a href="#" id="hero-cta-account" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span data-i18n="cta_open">Open ACCM Account</span>
+      </a>
+      <a href="#contact" class="btn btn-ghost btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span data-i18n="cta_contact">Contact Me</span>
+      </a>
+    </div>
+    <div class="hero-stats fade-in fade-in-delay-4">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">10K+</div>
+        <div class="hero-stat-label" data-i18n="stat_members">Community Members</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">Free</div>
+        <div class="hero-stat-label" data-i18n="stat_edu">Forex Education</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label" data-i18n="stat_support">Market Coverage</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">XAUUSD</div>
+        <div class="hero-stat-label" data-i18n="stat_focus">Specialty Focus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-sym">XAUUSD</span> Gold/USD <span class="ticker-up">▲ +0.43%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">EURUSD</span> Euro/USD <span class="ticker-down">▼ -0.12%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">GBPUSD</span> GBP/USD <span class="ticker-up">▲ +0.27%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">USDJPY</span> USD/JPY <span class="ticker-up">▲ +0.08%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">USDCHF</span> USD/CHF <span class="ticker-down">▼ -0.19%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">AUDUSD</span> AUD/USD <span class="ticker-up">▲ +0.31%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">XAUUSD</span> Gold/USD <span class="ticker-up">▲ +0.43%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">EURUSD</span> Euro/USD <span class="ticker-down">▼ -0.12%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">GBPUSD</span> GBP/USD <span class="ticker-up">▲ +0.27%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">USDJPY</span> USD/JPY <span class="ticker-up">▲ +0.08%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">USDCHF</span> USD/CHF <span class="ticker-down">▼ -0.19%</span></span>
+    <span class="ticker-item"><span class="ticker-sym">AUDUSD</span> AUD/USD <span class="ticker-up">▲ +0.31%</span></span>
+  </div>
+</div>
+
+<section id="market" class="section-pad">
+  <div class="container">
+    <div class="fade-in">
+      <span class="eyebrow" data-i18n="market_eyebrow">Live Chart</span>
+      <h2 class="section-title" data-i18n="market_title">Gold Market — Live</h2>
+      <p class="section-sub" data-i18n="market_sub">Track XAUUSD (Gold vs US Dollar) in real time. Understanding price movement is the foundation of every trade.</p>
+    </div>
+    <div class="fade-in fade-in-delay-1">
+      <div class="tradingview-widget-wrapper">
+        <div class="tradingview-widget-container" style="height:500px; width:100%;">
+          <iframe
+            id="tradingview_chart"
+            src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=OANDA%3AXAUUSD&interval=H1&hidesidetoolbar=0&hidetoptoolbar=0&symboledit=0&saveimage=0&toolbarbg=080808&studies=[]&theme=dark&style=1&timezone=Asia%2FManila&withdateranges=1&showpopupbutton=0&locale=en&backgroundColor=rgba(8,8,8,1)"
+            style="width:100%; height:100%; border:none;"
+            allowtransparency="true"
+            scrolling="no"
+            allowfullscreen
+            title="XAUUSD Gold Chart — TradingView"
+          ></iframe>
+        </div>
+      </div>
+      <div class="market-note">
+        <svg class="market-note-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span data-i18n="market_note">This chart shows real-time XAUUSD price data. Past performance does not guarantee future results. All trading involves risk. This is for educational purposes only.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="learn" class="section-pad">
+  <div class="container">
+    <div class="fade-in">
+      <span class="eyebrow" data-i18n="learn_eyebrow">Education</span>
+      <h2 class="section-title" data-i18n="learn_title">Start Here</h2>
+      <p class="section-sub" data-i18n="learn_sub">No experience needed. We break down everything you need to know before placing your first trade.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card fade-in fade-in-delay-1">
+        <div class="edu-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="edu-card-title" data-i18n="edu1_title">What is Forex?</h3>
+        <p class="edu-card-text" data-i18n="edu1_text">Forex (Foreign Exchange) is the global market where currencies are traded. With over $7.5 trillion in daily volume, it's the largest financial market in the world — open 24 hours a day, 5 days a week.</p>
+      </div>
+      <div class="edu-card fade-in fade-in-delay-2">
+        <div class="edu-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3 class="edu-card-title" data-i18n="edu2_title">Why Trade Gold?</h3>
+        <p class="edu-card-text" data-i18n="edu2_text">Gold (XAUUSD) is one of the most traded instruments in Forex. It has high liquidity, clear trends, and responds predictably to global news — making it ideal for both beginners and experienced traders.</p>
+      </div>
+      <div class="edu-card fade-in fade-in-delay-3">
+        <div class="edu-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="edu-card-title" data-i18n="edu3_title">How Trading Works</h3>
+        <p class="edu-card-text" data-i18n="edu3_text">Traders profit by buying low and selling high (or selling high and buying back lower). You use a broker platform to open trades, set stop-losses to manage risk, and take profits at your target price.</p>
+      </div>
+    </div>
+    <div class="fade-in">
+      <span class="eyebrow" data-i18n="roadmap_eyebrow">Beginner Roadmap</span>
+      <h3 class="section-title" style="font-size: 1.75rem; margin-bottom: 2rem;" data-i18n="roadmap_title">Your Path to Your First Trade</h3>
+    </div>
+    <div class="roadmap">
+      <div class="roadmap-step fade-in">
+        <div class="roadmap-num">01</div>
+        <div class="roadmap-content">
+          <h4 data-i18n="step1_title">Understand the Basics</h4>
+          <p data-i18n="step1_text">Learn how Forex works, what currency pairs are, and how prices move. No charts yet — just concepts. GoldForge FX provides free beginner guides for this.</p>
+        </div>
+      </div>
+      <div class="roadmap-step fade-in fade-in-delay-1">
+        <div class="roadmap-num">02</div>
+        <div class="roadmap-content">
+          <h4 data-i18n="step2_title">Start Small with a Live Account</h4>
+          <p data-i18n="step2_text">To master your trading psychology, we recommend starting with a small live account. Real money brings real emotions, which is essential for true learning.</p>
+        </div>
+      </div>
+      <div class="roadmap-step fade-in fade-in-delay-2">
+        <div class="roadmap-num">03</div>
+        <div class="roadmap-content">
+          <h4 data-i18n="step3_title">Learn Risk Management</h4>
+          <p data-i18n="step3_text">Before going live, understand lot sizes, stop-loss, and how much to risk per trade. Protecting your capital is more important than chasing profits.</p>
+        </div>
+      </div>
+      <div class="roadmap-step fade-in fade-in-delay-3">
+        <div class="roadmap-num">04</div>
+        <div class="roadmap-content">
+          <h4 data-i18n="step4_title">Join the Community</h4>
+          <p data-i18n="step4_text">Connect with fellow traders, follow our live signals, and ask questions in our Discord group. Learning alongside others accelerates progress significantly.</p>
+        </div>
+      </div>
+      <div class="roadmap-step fade-in fade-in-delay-4">
+        <div class="roadmap-num">05</div>
+        <div class="roadmap-content">
+          <h4 data-i18n="step5_title">Scale Up — Responsibly</h4>
+          <p data-i18n="step5_text">Once you are consistently following your strategy and managing risk properly on your small account, you can start gradually increasing your trading capital.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="features" class="section-pad">
+  <div class="container">
+    <div class="fade-in">
+      <span class="eyebrow" data-i18n="feat_eyebrow">Why Join Us</span>
+      <h2 class="section-title" data-i18n="feat_title">Everything You Need to Succeed</h2>
+      <p class="section-sub" data-i18n="feat_sub">We built GoldForge FX around one principle: traders grow faster together than alone.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div class="feature-name" data-i18n="f1_name">Free Forex Education</div>
+        <div class="feature-desc" data-i18n="f1_desc">Access structured beginner-to-advanced guides, video breakdowns, and market analysis — completely free for community members.</div>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-1">
+        <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="feature-name" data-i18n="f2_name">Active Trading Community</div>
+        <div class="feature-desc" data-i18n="f2_desc">Ask questions, share setups, and discuss the market with thousands of traders in our group. No toxic gatekeeping.</div>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-2">
+        <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="feature-name" data-i18n="f3_name">Trading Bots &amp; Automation</div>
+        <div class="feature-desc" data-i18n="f3_desc">Learn to use and understand algorithmic tools that can help you execute strategies more consistently — without emotional bias.</div>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-3">
+        <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="feature-name" data-i18n="f4_name">Custom Indicators</div>
+        <div class="feature-desc" data-i18n="f4_desc">Access our proprietary trading indicators designed to help identify high-probability setups in the gold market.</div>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-1">
+        <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="feature-name" data-i18n="f5_name">Gold Market Specialists</div>
+        <div class="feature-desc" data-i18n="f5_desc">We focus specifically on XAUUSD. Deep expertise in one instrument means better, more consistent analysis for our members.</div>
+      </div>
+      <div class="feature-card fade-in fade-in-delay-2">
+        <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="feature-name" data-i18n="f6_name">Mentorship &amp; Support</div>
+        <div class="feature-desc" data-i18n="f6_desc">Direct access to mentor <span class="mentor-name-inline">Coach Alex</span> for trade reviews, Q&amp;A, and guidance. You're never trading alone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="broker" class="section-pad">
+  <div class="container">
+    <div class="broker-inner">
+      <div>
+        <div class="fade-in">
+          <span class="eyebrow" data-i18n="broker_eyebrow">Our Recommended Broker</span>
+          <h2 class="section-title" data-i18n="broker_title">Why We Trade with ACCM</h2>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;" data-i18n="broker_sub">After evaluating dozens of brokers, GoldForge FX recommends ACCM for our community. Here's why — no exaggeration, just the facts.</p>
+        </div>
+        <ul class="broker-points fade-in fade-in-delay-1">
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp1">Regulated and licensed — your funds are held in segregated accounts with proper oversight.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp2">Low spreads on XAUUSD, which directly impacts your profitability on every trade.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp3">MT4 and MT5 platforms supported — the industry standard tools trusted by professional traders worldwide.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp4">Fast deposits and withdrawals — your money moves quickly, without unnecessary delays.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="bp5">Low minimum deposits — ideal for testing your strategies and building emotional discipline with real market exposure.</span></li>
+        </ul>
+        <div class="fade-in fade-in-delay-2" style="padding: 1rem; background: var(--gold-muted); border: 1px solid var(--border-gold); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+          <strong style="color: var(--gold);" data-i18n="disclosure_label">Affiliate Disclosure:</strong>
+          <span data-i18n="disclosure_text"> GoldForge FX uses an affiliate link for ACCM. If you open an account through our link, we may receive a commission. This does not affect your trading conditions or the fees you pay.</span>
+        </div>
+        <a href="#" id="broker-cta-btn" target="_blank" rel="noopener" class="btn btn-primary btn-lg fade-in fade-in-delay-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span data-i18n="cta_open">Open ACCM Account</span>
+        </a>
+      </div>
+      <div class="broker-visual">
+        <div class="broker-stat-card fade-in">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><div class="broker-stat-num" data-i18n="bs1_num">Regulated</div><div class="broker-stat-label" data-i18n="bs1_label">Licensed &amp; Compliant Broker</div></div>
+        </div>
+        <div class="broker-stat-card fade-in fade-in-delay-1">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div><div class="broker-stat-num">MT4 / MT5</div><div class="broker-stat-label" data-i18n="bs2_label">Professional Trading Platforms</div></div>
+        </div>
+        <div class="broker-stat-card fade-in fade-in-delay-2">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <div><div class="broker-stat-num" data-i18n="bs3_num">Low Spreads</div><div class="broker-stat-label" data-i18n="bs3_label">Tight XAUUSD Pricing</div></div>
+        </div>
+        <div class="broker-stat-card fade-in fade-in-delay-3">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+          <div><div class="broker-stat-num" data-i18n="bs4_num">Low Minimum</div><div class="broker-stat-label" data-i18n="bs4_label">Start Small, Build Discipline</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="calculator" class="section-pad">
+  <div class="container">
+    <div class="fade-in calc-wrapper">
+      <span class="eyebrow" data-i18n="calc_eyebrow">Tool</span>
+      <h2 class="section-title" data-i18n="calc_title">Gold Profit / Loss Calculator</h2>
+      <p class="section-sub" data-i18n="calc_sub">Enter your trade details below and instantly see how much you could gain or lose. Perfect for understanding lot sizes before trading.</p>
+
+      <div class="calc-card fade-in fade-in-delay-1">
+        <div class="calc-body">
+          <div class="calc-inputs">
+            <div class="calc-field">
+              <label data-i18n="calc_direction_label">Trade Direction</label>
+              <div class="direction-toggle">
+                <button id="buy-btn" class="dir-btn active-buy" onclick="setDirection('buy')" data-i18n="calc_buy">▲ BUY (Bumili)</button>
+                <button id="sell-btn" class="dir-btn" onclick="setDirection('sell')" data-i18n="calc_sell">▼ SELL (Magbenta)</button>
+              </div>
+              <p class="field-hint" id="direction-hint" data-i18n="calc_direction_hint_buy">BUY = kumikita ka kung TUMAAS ang presyo ng gold.</p>
+            </div>
+            <div class="calc-field">
+              <label for="lot-size" data-i18n="calc_lot_label">Lot Size</label>
+              <input type="number" id="lot-size" value="0.01" min="0.01" step="0.01" oninput="calculate()" aria-label="Lot size" />
+              <p class="field-hint" data-i18n="calc_lot_hint">0.01 = micro lot (pinakamaliit). 1.00 = standard lot.</p>
+            </div>
+            <div class="calc-field">
+              <label for="entry-price" data-i18n="calc_entry_label">Entry Price (Pumasok sa presyong ito)</label>
+              <input type="number" id="entry-price" value="2650.00" min="0" step="0.01" oninput="calculate()" aria-label="Entry price" />
+              <p class="field-hint" data-i18n="calc_entry_hint">Ito ang presyo ng gold nang mag-open ka ng trade.</p>
+            </div>
+            <div class="calc-field">
+              <label for="exit-price" data-i18n="calc_exit_label">Exit / Target Price (Lalabas dito)</label>
+              <input type="number" id="exit-price" value="2660.00" min="0" step="0.01" oninput="calculate()" aria-label="Exit or target price" />
+              <p class="field-hint" data-i18n="calc_exit_hint">Ito ang presyo ng gold nang mag-close ka ng trade.</p>
+            </div>
+          </div>
+          <div class="calc-results">
+            <div style="font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;" data-i18n="calc_results_title">Resulta ng Trade</div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="calc_res_move">Price Move</span>
+              <span class="result-value" id="res-move">+$10.00</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="calc_res_pips">Pips Gained/Lost</span>
+              <span class="result-value" id="res-pips">+1000</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="calc_res_perpip">Value Per Pip</span>
+              <span class="result-value" id="res-per-pip">$0.10</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label" data-i18n="calc_res_contract">Contract Size</span>
+              <span class="result-value" id="res-contract">1 oz</span>
+            </div>
+            <div class="pnl-display">
+              <div class="pnl-label" data-i18n="calc_pnl_label">Estimated Profit / Loss</div>
+              <div class="pnl-amount profit" id="res-total">+$10.00</div>
+              <div class="pnl-per-pip" id="res-pnl-note">Based on 0.01 lot</div>
+            </div>
+          </div>
+        </div>
+        <div class="calc-explain">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="calc-formula-note" data-i18n="calc_formula_note">Formula: (Exit Price − Entry Price) × 100 oz × Lot Size = Profit/Loss in USD. Para sa Gold (XAUUSD), 1 standard lot = 100 oz. Hindi kasama ang spread, swap, o commission.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="faq" class="section-pad">
+  <div class="container" style="max-width: 720px;">
+    <div class="fade-in">
+      <span class="eyebrow" data-i18n="faq_eyebrow">Questions</span>
+      <h2 class="section-title" data-i18n="faq_title">Frequently Asked</h2>
+      <p class="section-sub" data-i18n="faq_sub">Honest answers to the questions we hear most often.</p>
+    </div>
+    <div class="faq-list fade-in">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq1">Do I need experience to join GoldForge FX?</span>
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="fa1">No. GoldForge FX welcomes complete beginners. We start from the fundamentals and build up progressively. Our community is friendly and supportive, not elitist.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq2">Is Forex trading risky?</span>
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="fa2">Yes. Forex and gold trading carries real financial risk, and you can lose your deposited capital. That's why we emphasize risk management and education before trading with real money. Never trade with money you cannot afford to lose.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq3">Why do you recommend ACCM specifically?</span>
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="fa3">We've evaluated the platform for reliability, spreads, withdrawal speed, and compliance. We also have an affiliate relationship with ACCM — we disclose this fully. Ultimately, choosing your broker is your decision, and we encourage you to do your own research as well.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq4">Is GoldForge FX free to join?</span>
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="fa4">The community, basic education, and market discussions are free. Some premium resources or tools may be available separately, but the core community experience is accessible to everyone.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq5">Can I trade gold on my phone?</span>
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="fa5">Yes. MT4 and MT5 are available on iOS and Android. You can monitor charts, manage open trades, and execute orders directly from your phone. We recommend learning on desktop first for the full experience.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq6">Does GoldForge FX guarantee profits?</span>
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="fa6">No — and anyone who does is lying to you. Trading involves risk, and losses are a normal part of the process. What we offer is education, community support, and tools to help you make more informed decisions. Your outcomes depend on your own discipline and skill development.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="contact" class="section-pad">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; max-width: 560px; margin: 0 auto 3rem;">
+      <span class="eyebrow" data-i18n="contact_eyebrow">Get in Touch</span>
+      <h2 class="section-title" data-i18n="contact_title">Find Us Online</h2>
+      <p class="section-sub" style="margin-bottom: 0;" data-i18n="contact_sub">Join the conversation, follow our analysis, or reach out directly. We're active on all platforms.</p>
+    </div>
+
+    <div class="social-grid fade-in fade-in-delay-1" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+      <a href="#" id="social-instagram" target="_blank" rel="noopener" class="social-card" style="width: 100%; max-width: 320px;">
+        <div class="social-icon ig">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div>
+          <div class="social-label">Instagram</div>
+          <div class="social-handle" id="social-instagram-handle">@k.rzxx</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="fade-in fade-in-delay-3" style="text-align:center; margin-top: 2rem;">
+      <a href="#" id="contact-email-link" class="btn btn-outline btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span id="contact-email-text" data-i18n="contact_email">Email Us</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo" id="footer-logo-text">GoldForge FX</div>
+        <div class="footer-tagline" id="footer-tagline">Forge Your Wealth in Gold.</div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#learn" data-i18n="nav_learn">Education</a></li>
+        <li><a href="#broker" data-i18n="nav_broker">ACCM</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+    </div>
+    <p class="footer-disclaimer" data-i18n="footer_disclaimer">
+      <strong>Risk Warning:</strong> Trading Forex and gold (XAUUSD) involves significant risk and is not suitable for all investors. You may lose more than your initial deposit. Past performance is not indicative of future results. GoldForge FX provides educational content and community support only — this is not financial advice. Always seek independent financial advice before trading.
+    </p>
+    <p class="footer-disclaimer" style="margin-top: 0.75rem;" data-i18n="footer_affiliate">
+      <strong>Affiliate Disclosure:</strong> This website contains affiliate links to ACCM. If you open a trading account through these links, GoldForge FX may receive a referral commission at no extra cost to you. Our recommendations are based on honest evaluation of the platform.
+    </p>
+    <div class="footer-bottom">
+      <div class="footer-copy" id="footer-copy">© 2026 GoldForge FX. All rights reserved.</div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#" style="font-size: 0.78rem; color: var(--text-muted);" data-i18n="footer_privacy">Privacy Policy</a>
+        <a href="#" style="font-size: 0.78rem; color: var(--text-muted);" data-i18n="footer_terms">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const CONFIG = {
+  brandName: "GoldForge FX",
+  tagline: "Forge Your Wealth in Gold.",
+  mentorName: "Coach Alex",
+  affiliateLink: "https://accm.global/account/register?shareUserSetId=e66b90387eaa493fa",
+  telegram: "",
+  facebook: "",
+  instagram: "https://www.instagram.com/k.rzxx?igsh=MTRyZXpidGoyaTVrbw%3D%3D&utm_source=qr",
+  tiktok: "",
+  email: "",
+  logoText: "GoldForge FX",
+  primaryColor: "#B8860B",
+  accentColor: "#DAA520",
+  language: "en",
+  stats: { members: "10K+", education: "Free", coverage: "24/7", focus: "XAUUSD" }
+};
+
+const LANG = {
+  en: {
+    nav_learn: "Learn", nav_why: "Why Us", nav_broker: "ACCM", nav_faq: "FAQ", nav_contact: "Contact",
+    cta_open: "Open an Account", cta_learn: "Learn Forex", cta_contact: "Contact Me",
+    hero_badge: "Live Trading Community",
+    hero_title_1: "Trade Gold.", hero_title_2: "Build Wealth.", hero_title_3: "Grow Together.",
+    hero_sub: "GoldForge FX guides beginners and experienced traders through the world of Forex and gold markets — with free education, expert signals, and a community that actually helps each other win.",
+    stat_members: "Community Members", stat_edu: "Forex Education", stat_support: "Market Coverage", stat_focus: "Specialty Focus",
+    market_eyebrow: "Live Chart", market_title: "Gold Market — Live",
+    market_sub: "Track XAUUSD (Gold vs US Dollar) in real time. Understanding price movement is the foundation of every trade.",
+    market_note: "This chart shows real-time XAUUSD price data. Past performance does not guarantee future results. All trading involves risk. This is for educational purposes only.",
+    learn_eyebrow: "Education", learn_title: "Start Here",
+    learn_sub: "No experience needed. We break down everything you need to know before placing your first trade.",
+    edu1_title: "What is Forex?", edu1_text: "Forex (Foreign Exchange) is the global market where currencies are traded. With over $7.5 trillion in daily volume, it's the largest financial market in the world — open 24 hours a day, 5 days a week.",
+    edu2_title: "Why Trade Gold?", edu2_text: "Gold (XAUUSD) is one of the most traded instruments in Forex. It has high liquidity, clear trends, and responds predictably to global news — making it ideal for both beginners and experienced traders.",
+    edu3_title: "How Trading Works", edu3_text: "Traders profit by buying low and selling high (or selling high and buying back lower). You use a broker platform to open trades, set stop-losses to manage risk, and take profits at your target price.",
+    roadmap_eyebrow: "Beginner Roadmap", roadmap_title: "Your Path to Your First Trade",
+    step1_title: "Understand the Basics", step1_text: "Learn how Forex works, what currency pairs are, and how prices move. No charts yet — just concepts. GoldForge FX provides free beginner guides for this.",
+    step2_title: "Start Small with a Live Account", step2_text: "To master your trading psychology, we recommend starting with a small live account. Real money brings real emotions, which is essential for true learning.",
+    step3_title: "Learn Risk Management", step3_text: "Before going live, understand lot sizes, stop-loss, and how much to risk per trade. Protecting your capital is more important than chasing profits.",
+    step4_title: "Join the Community", step4_text: "Connect with fellow traders, follow our live signals, and ask questions in our Discord group. Learning alongside others accelerates progress significantly.",
+    step5_title: "Scale Up — Responsibly", step5_text: "Once you are consistently following your strategy and managing risk properly on your small account, you can start gradually increasing your trading capital.",
+    feat_eyebrow: "Why Join Us", feat_title: "Everything You Need to Succeed",
+    feat_sub: "We built GoldForge FX around one principle: traders grow faster together than alone.",
+    f1_name: "Free Forex Education", f1_desc: "Access structured beginner-to-advanced guides, video breakdowns, and market analysis — completely free for community members.",
+    f2_name: "Active Trading Community", f2_desc: "Ask questions, share setups, and discuss the market with thousands of traders in our group. No toxic gatekeeping.",
+    f3_name: "Trading Bots & Automation", f3_desc: "Learn to use and understand algorithmic tools that can help you execute strategies more consistently — without emotional bias.",
+    f4_name: "Custom Indicators", f4_desc: "Access our proprietary trading indicators designed to help identify high-probability setups in the gold market.",
+    f5_name: "Gold Market Specialists", f5_desc: "We focus specifically on XAUUSD. Deep expertise in one instrument means better, more consistent analysis for our members.",
+    f6_name: "Mentorship & Support", f6_desc: `Direct access to mentor ${CONFIG.mentorName} for trade reviews, Q&A, and guidance. You're never trading alone.`,
+    broker_eyebrow: "Our Recommended Broker", broker_title: "Why We Trade with ACCM",
+    broker_sub: "After evaluating dozens of brokers, GoldForge FX recommends ACCM for our community. Here's why — no exaggeration, just the facts.",
+    bp1: "Regulated and licensed — your funds are held in segregated accounts with proper oversight.",
+    bp2: "Low spreads on XAUUSD, which directly impacts your profitability on every trade.",
+    bp3: "MT4 and MT5 platforms supported — the industry standard tools trusted by professional traders worldwide.",
+    bp4: "Fast deposits and withdrawals — your money moves quickly, without unnecessary delays.",
+    bp5: "Low minimum deposits — ideal for testing your strategies and building emotional discipline with real market exposure.",
+    disclosure_label: "Affiliate Disclosure:",
+    disclosure_text: " GoldForge FX uses an affiliate link for ACCM. If you open an account through our link, we may receive a commission. This does not affect your trading conditions or the fees you pay.",
+    bs1_num: "Regulated", bs1_label: "Licensed & Compliant Broker", bs2_label: "Professional Trading Platforms",
+    bs3_num: "Low Spreads", bs3_label: "Tight XAUUSD Pricing", bs4_num: "Low Minimum", bs4_label: "Start Small, Build Discipline",
+    calc_eyebrow: "Tool", calc_title: "Gold Profit / Loss Calculator",
+    calc_sub: "Enter your trade details below and instantly see how much you could gain or lose. Perfect for understanding lot sizes before trading.",
+    calc_direction_label: "Trade Direction",
+    calc_buy: "▲ BUY (Price goes up)",
+    calc_sell: "▼ SELL (Price goes down)",
+    calc_direction_hint_buy: "BUY = You profit when gold price RISES.",
+    calc_direction_hint_sell: "SELL = You profit when gold price FALLS.",
+    calc_lot_label: "Lot Size (How big is your trade?)",
+    calc_lot_hint: "0.01 = micro lot (smallest). 0.10 = mini lot. 1.00 = standard lot.",
+    calc_entry_label: "Entry Price (Price when you open the trade)",
+    calc_entry_hint: "This is the gold price when you start the trade.",
+    calc_exit_label: "Exit / Target Price (Price when you close the trade)",
+    calc_exit_hint: "This is your take profit or stop loss price.",
+    calc_results_title: "Trade Result",
+    calc_res_move: "Price Movement",
+    calc_res_pips: "Pips Moved",
+    calc_res_perpip: "Value Per Pip",
+    calc_res_contract: "Contract Size",
+    calc_pnl_label: "Estimated Profit / Loss",
+    calc_formula_note: "Formula: (Exit − Entry) × 100 oz × Lot Size = USD Profit/Loss. For Gold (XAUUSD): 1 standard lot = 100 oz. Spread, swap, and commission are NOT included.",
+    faq_eyebrow: "Questions", faq_title: "Frequently Asked", faq_sub: "Honest answers to the questions we hear most often.",
+    fq1: "Do I need experience to join GoldForge FX?",
+    fa1: "No. GoldForge FX welcomes complete beginners. We start from the fundamentals and build up progressively. Our community is friendly and supportive, not elitist.",
+    fq2: "Is Forex trading risky?",
+    fa2: "Yes. Forex and gold trading carries real financial risk, and you can lose your deposited capital. That's why we emphasize risk management and education before trading with real money. Never trade with money you cannot afford to lose.",
+    fq3: "Why do you recommend ACCM specifically?",
+    fa3: "We've evaluated the platform for reliability, spreads, withdrawal speed, and compliance. We also have an affiliate relationship with ACCM — we disclose this fully. Ultimately, choosing your broker is your decision, and we encourage you to do your own research as well.",
+    fq4: "Is GoldForge FX free to join?",
+    fa4: "The community, basic education, and market discussions are free. Some premium resources or tools may be available separately, but the core community experience is accessible to everyone.",
+    fq5: "Can I trade gold on my phone?",
+    fa5: "Yes. MT4 and MT5 are available on iOS and Android. You can monitor charts, manage open trades, and execute orders directly from your phone. We recommend learning on desktop first for the full experience.",
+    fq6: "Does GoldForge FX guarantee profits?",
+    fa6: "No — and anyone who does is lying to you. Trading involves risk, and losses are a normal part of the process. What we offer is education, community support, and tools to help you make more informed decisions. Your outcomes depend on your own discipline and skill development.",
+    contact_eyebrow: "Get in Touch", contact_title: "Find Us Online",
+    contact_sub: "Join the conversation, follow our analysis, or reach out directly. We're active on all platforms.",
+    contact_email: "Email Us",
+    footer_disclaimer: "<strong>Risk Warning:</strong> Trading Forex and gold (XAUUSD) involves significant risk and is not suitable for all investors. You may lose more than your initial deposit. Past performance is not indicative of future results. GoldForge FX provides educational content and community support only — this is not financial advice. Always seek independent financial advice before trading.",
+    footer_affiliate: "<strong>Affiliate Disclosure:</strong> This website contains affiliate links to ACCM. If you open a trading account through these links, GoldForge FX may receive a referral commission at no extra cost to you. Our recommendations are based on honest evaluation of the platform.",
+    footer_privacy: "Privacy Policy", footer_terms: "Terms of Use"
+  },
+  fil: {
+    nav_learn: "Matuto", nav_why: "Bakit Kami", nav_broker: "ACCM", nav_faq: "FAQ", nav_contact: "Kausapin Kami",
+    cta_open: "Gumawa ng Account", cta_learn: "Matuto ng Forex", cta_contact: "Contact Us",
+    hero_badge: "Live Trading Community",
+    hero_title_1: "Trade ng Gold.", hero_title_2: "Magpalago ng Pera.", hero_title_3: "Sabay-sabay Tayong Umangat.",
+    hero_sub: "Tinutulungan ng GoldForge FX ang mga beginners at experienced traders sa mundo ng Forex at gold. May free education, expert signals, at isang community na nagtutulungang manalo.",
+    stat_members: "Community Members", stat_edu: "Libreng Edukasyon sa Forex", stat_support: "Coverage ng Merkado", stat_focus: "Espesyalidad",
+    market_eyebrow: "Live Chart", market_title: "Gold Market — Live",
+    market_sub: "I-monitor ang XAUUSD (Gold vs US Dollar) in real-time. Ang pag-intindi sa galaw ng presyo ang pinaka-foundation ng bawat trade.",
+    market_note: "Pinapakita ng chart na ito ang real-time data ng XAUUSD. Tandaan na ang past performance ay hindi guarantee ng future results. May risk ang trading. Ito ay para sa education purposes lamang.",
+    learn_eyebrow: "Edukasyon", learn_title: "Magsimula Dito",
+    learn_sub: "Kahit walang experience, okay lang. Ituturo namin lahat ng kailangan mong malaman bago ka mag-place ng unang trade mo.",
+    edu1_title: "Ano ang Forex?", edu1_text: "Ang Forex (Foreign Exchange) ay ang global market kung saan nagte-trade ng iba't ibang currencies. Ito ang pinakamalaking financial market sa buong mundo — open 24/5.",
+    edu2_title: "Bakit Mag-trade ng Gold?", edu2_text: "Ang Gold (XAUUSD) ay isa sa mga pinaka-ti-ni-trade sa Forex. Mataas ang liquidity nito at maganda ang galaw kaya perfect ito para sa mga beginners at pro.",
+    edu3_title: "Paano Gumagana ang Trading", edu3_text: "Kumikita ang mga traders by buying low and selling high (o kaya naman selling high at buying low). Gagamit ka ng broker platform para mag-open ng trades, mag-set ng stop-loss para i-manage ang risk, at kunin ang profit sa target price mo.",
+    roadmap_eyebrow: "Roadmap para sa Baguhan", roadmap_title: "Steps Para sa Unang Trade Mo",
+    step1_title: "Unawain ang mga Pangunahing Kaalaman", step1_text: "Alamin kung paano nagwo-work ang Forex at kung paano gumagalaw ang presyo. Walang charts muna — concepts lang. May free beginner guides kami para dito.",
+    step2_title: "Magsimula sa Maliit na Live Account", step2_text: "Para ma-feel mo yung totoong emotions sa trading, mag-open ng small live account. Importante na totoong pera ang gamit para masanay ka agad sa market psychology.",
+    step3_title: "Matuto ng Risk Management", step3_text: "Bago mag-trade ng malaki, intindihin muna ang lot sizes, stop-loss, at kung magkano lang ang pwede mong i-risk per trade. Mas importante ang pag-protect ng capital kesa sa paghabol ng profit.",
+    step4_title: "Sumali sa Komunidad", step4_text: "Maki-connect sa ibang traders, sundan ang aming live signals, at magtanong sa FB group o Discord namin. Mas mabilis matuto pag may kasama.",
+    step5_title: "Mag-Scale Up — Responsibly", step5_text: "Kapag consistent ka na sa maliit mong account at nasusunod mo na ang trading plan mo, pwede ka na mag-dagdag ng funds. Start small muna talaga tapos grow gradually.",
+    feat_eyebrow: "Bakit Sumali", feat_title: "Lahat ng Kailangan Mo para Magtagumpay",
+    feat_sub: "Ginawa namin ang GoldForge FX dahil naniniwala kami na mas mabilis matuto ang mga traders kapag tulong-tulong.",
+    f1_name: "Libreng Edukasyon sa Forex", f1_desc: "Ma-access ang step-by-step guides, video breakdowns, at market analysis — 100% free para sa mga members.",
+    f2_name: "Aktibong Komunidad sa Trading", f2_desc: "Magtanong, mag-share ng setups, at makipag-usap sa kapwa traders natin. Bawal ang toxic dito.",
+    f3_name: "Trading Bots at Automation", f3_desc: "Matutong gumamit ng mga bots na tutulong sayo mag-execute ng trades nang consistent at walang halong emosyon.",
+    f4_name: "Custom na mga Indicator", f4_desc: "Maka-access sa aming mga custom trading indicators na ginawa para madaling makita ang mga magagandang setups sa gold market.",
+    f5_name: "Espesyalista sa Gold Market", f5_desc: "Naka-focus lang kami sa XAUUSD. Dahil master namin ang isang instrument, mas nagiging accurate at consistent ang analysis namin para sa inyo.",
+    f6_name: "Mentorship at Suporta", f6_desc: "Direct access kay Coach Alex para sa trade reviews, Q&A, at guidance. Hindi ka mag-iisa sa trading journey mo.",
+    broker_eyebrow: "Aming Inirerekomendang Broker", broker_title: "Bakit Kami Nag-ti-trade sa ACCM",
+    broker_sub: "Pagkatapos namin mag-try ng maraming brokers, ACCM ang nire-recommend namin para sa community. Ito ang mga rason bakit.",
+    bp1: "Regulated at licensed — safe ang funds mo.", bp2: "Low spreads sa XAUUSD, kaya mas malaki ang matitirang profit sayo sa bawat trade.",
+    bp3: "Supported ang MT4 at MT5 — ang pinaka-trusted na platforms ng mga pro traders.",
+    bp4: "Mabilis ang deposit at withdrawal — walang hassle kapag kukunin mo na ang pera mo.",
+    bp5: "Mababang minimum deposit — perfect para ma-test mo agad ang skills at emotions mo gamit ang totoong pera.",
+    disclosure_label: "Affiliate Disclosure:",
+    disclosure_text: " Gumagamit ang GoldForge FX ng affiliate link para sa ACCM. Kung mag-open ka ng account gamit ang link namin, makakatanggap kami ng commission nang walang dagdag na bayad sayo.",
+    bs1_num: "Regulado", bs1_label: "Licensed & Regulated", bs2_label: "Professional Trading Platforms",
+    bs3_num: "Mababang Spreads", bs3_label: "Tight XAUUSD Spreads", bs4_num: "Low Minimum", bs4_label: "Simulan sa Maliit para sa Real Emotions",
+    calc_eyebrow: "Tool", calc_title: "Gold Profit / Loss Calculator",
+    calc_sub: "Ilagay ang iyong trade details at makita agad kung magkano ang kikitain o matatalo. Para maintindihan mo ang lot sizes bago mag-trade.",
+    calc_direction_label: "Direksyon ng Trade",
+    calc_buy: "▲ BUY (Bumili)",
+    calc_sell: "▼ SELL (Magbenta)",
+    calc_direction_hint_buy: "BUY = Kumikita ka kung TUMAAS ang presyo ng gold.",
+    calc_direction_hint_sell: "SELL = Kumikita ka kung BUMABA ang presyo ng gold.",
+    calc_lot_label: "Lot Size (Gaano kalaki ang trade mo?)",
+    calc_lot_hint: "0.01 = micro lot (pinakamaliit). 0.10 = mini lot. 1.00 = standard lot.",
+    calc_entry_label: "Entry Price (Presyo ng gold nang mag-open ka)",
+    calc_entry_hint: "Ito ang presyo ng gold nang sinimulan mo ang trade.",
+    calc_exit_label: "Exit / Target Price (Presyo ng gold nang mag-close ka)",
+    calc_exit_hint: "Ito ang iyong take profit o stop loss na presyo.",
+    calc_results_title: "Resulta ng Trade",
+    calc_res_move: "Galaw ng Presyo",
+    calc_res_pips: "Pips na Naglipat",
+    calc_res_perpip: "Halaga Bawat Pip",
+    calc_res_contract: "Laki ng Kontrata",
+    calc_pnl_label: "Tinatayang Kita / Talo",
+    calc_formula_note: "Formula: (Exit − Entry) × 100 oz × Lot Size = Kita/Talo sa USD. Para sa Gold (XAUUSD): 1 standard lot = 100 oz. Hindi kasama ang spread, swap, o commission.",
+    faq_eyebrow: "Mga Tanong", faq_title: "Madalas na Tinatanong", faq_sub: "Mga honest na sagot sa mga madalas itanong samin.",
+    fq1: "Kailangan ko ba ng karanasan para sumali sa GoldForge FX?",
+    fa1: "Hindi. Welcome na welcome ang mga complete beginners dito. Mula basic hanggang advance, ituturo namin. Friendly ang community namin.",
+    fq2: "Mapanganib ba ang Forex trading?",
+    fa2: "Oo. May risk talaga sa Forex at gold trading, at pwede kang matalo. Kaya tinuturo namin nang maigi ang risk management bago ka mag-trade ng totoong pera. Rule of thumb: Trade only what you can afford to lose.",
+    fq3: "Bakit partikular na inirerekomenda ninyo ang ACCM?",
+    fa3: "Tinest namin ang platform nila sa bilis ng withdrawal, spreads, at reliability. Bukas din kami na may affiliate link kami sa kanila. Pero at the end of the day, ikaw pa rin ang masusunod kung anong broker ang gusto mo.",
+    fq4: "Libre ba ang pagsali sa GoldForge FX?",
+    fa4: "Libre lang ang community, basic education, at market discussions. May mga premium tools na may bayad, pero yung core group natin ay open for everyone.",
+    fq5: "Maaari ba akong mag-trade ng ginto gamit ang aking telepono?",
+    fa5: "Oo. Pwedeng i-download ang MT4 at MT5 sa iOS at Android. Pwede kang mag-monitor at mag-trade gamit phone mo. Pero mas recommended namin mag-aral gamit ang PC or laptop para mas malinaw ang charts.",
+    fq6: "Ginagarantiyahan ba ng GoldForge FX ang kita?",
+    fa6: "Hindi — at scammer ang sinumang mangako niyan sayo. Normal ang losses sa trading. Ang tinuturo namin ay kung paano mo ito ima-manage para mas malaki pa rin ang panalo mo kesa talo mo.",
+    contact_eyebrow: "Makipag-ugnayan", contact_title: "Hanapin Kami Online",
+    contact_sub: "Sali na sa usapan, sundan ang analysis namin, o mag-message samin directly.",
+    contact_email: "Email Us",
+    footer_disclaimer: "<strong>Risk Warning:</strong> Ang Forex at gold trading (XAUUSD) ay may malaking risk at hindi para sa lahat. Pwede kang matalo ng higit pa sa dineposit mo. Ang content ng GoldForge FX ay for educational purposes lang at hindi financial advice.",
+    footer_affiliate: "<strong>Affiliate Disclosure:</strong> Ang website na ito ay may affiliate links ng ACCM. Pag ginamit mo ito, baka makatanggap kami ng commission na walang extra cost sayo.",
+    footer_privacy: "Privacy Policy", footer_terms: "Terms of Use"
+  }
+};
+
+let direction = 'buy';
+
+function setDirection(dir) {
+  direction = dir;
+  const t = LANG[currentLang];
+  document.getElementById('buy-btn').className  = 'dir-btn' + (dir === 'buy'  ? ' active-buy'  : '');
+  document.getElementById('sell-btn').className = 'dir-btn' + (dir === 'sell' ? ' active-sell' : '');
+  document.getElementById('direction-hint').textContent =
+    dir === 'buy' ? t.calc_direction_hint_buy : t.calc_direction_hint_sell;
+  calculate();
+}
+
+function calculate() {
+  const lots   = parseFloat(document.getElementById('lot-size').value)    || 0;
+  const entry  = parseFloat(document.getElementById('entry-price').value)  || 0;
+  const exit   = parseFloat(document.getElementById('exit-price').value)   || 0;
+
+  const priceMove   = direction === 'buy' ? (exit - entry) : (entry - exit);
+  const pips        = Math.round(priceMove / 0.01);
+  const contractSz  = (100 * lots).toFixed(lots < 1 ? 2 : 0);
+  const valuePerPip = (100 * lots * 0.01);
+  const pnl         = priceMove * 100 * lots;
+
+  const moveFmt = (priceMove >= 0 ? '+' : '') + '$' + Math.abs(priceMove).toFixed(2);
+  document.getElementById('res-move').textContent = moveFmt;
+  document.getElementById('res-move').style.color = priceMove >= 0 ? '#4ade80' : '#f87171';
+
+  document.getElementById('res-pips').textContent = (pips >= 0 ? '+' : '') + pips.toLocaleString();
+  document.getElementById('res-pips').style.color = pips >= 0 ? '#4ade80' : '#f87171';
+
+  document.getElementById('res-per-pip').textContent = '$' + valuePerPip.toFixed(2);
+  document.getElementById('res-contract').textContent = contractSz + ' oz';
+
+  const pnlEl = document.getElementById('res-total');
+  const sign  = pnl > 0 ? '+' : '';
+  pnlEl.textContent = sign + '$' + Math.abs(pnl).toFixed(2);
+  pnlEl.className   = 'pnl-amount ' + (pnl > 0 ? 'profit' : pnl < 0 ? 'loss' : 'zero');
+
+  document.getElementById('res-pnl-note').textContent =
+    (currentLang === 'fil' ? 'Batay sa ' : 'Based on ') + lots + ' lot' + (lots !== 1 ? 's' : '');
+}
+
+function hexToRgba(hex, alpha) {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.length === 3 ? h[0]+h[0] : h.slice(0,2), 16);
+  const g = parseInt(h.length === 3 ? h[1]+h[1] : h.slice(2,4), 16);
+  const b = parseInt(h.length === 3 ? h[2]+h[2] : h.slice(4,6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+function extractHandle(url, platform) {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    const parts = u.pathname.replace(/\/$/, '').split('/').filter(Boolean);
+    const last = parts[parts.length - 1] || '';
+    if (['telegram','instagram','tiktok'].includes(platform)) return last.startsWith('@') ? last : '@' + last;
+    return last || url;
+  } catch { return url; }
+}
+function slug(str) { return str.toLowerCase().replace(/[^a-z0-9]+/g, ''); }
+
+function applyConfig() {
+  document.documentElement.style.setProperty('--gold', CONFIG.primaryColor);
+  document.documentElement.style.setProperty('--gold-bright', CONFIG.accentColor);
+  document.documentElement.style.setProperty('--gold-muted', hexToRgba(CONFIG.primaryColor, 0.15));
+  document.documentElement.style.setProperty('--gold-glow', hexToRgba(CONFIG.primaryColor, 0.35));
+  document.documentElement.style.setProperty('--border-gold', hexToRgba(CONFIG.primaryColor, 0.3));
+  document.getElementById('page-title').textContent = CONFIG.brandName;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', `${CONFIG.brandName} — ${CONFIG.tagline}`);
+  document.querySelectorAll('#nav-logo-text, #footer-logo-text').forEach(el => el.textContent = CONFIG.logoText || CONFIG.brandName);
+  const taglineEl = document.getElementById('footer-tagline');
+  if (taglineEl) taglineEl.textContent = CONFIG.tagline;
+  document.querySelectorAll('.mentor-name-inline').forEach(el => el.textContent = CONFIG.mentorName);
+  ['nav-cta-btn','mobile-cta','hero-cta-account','broker-cta-btn','sticky-cta-link'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = CONFIG.affiliateLink || '#';
+  });
+  const socialMap = {
+    telegram:  { id: 'social-telegram',  handleId: 'social-telegram-handle',  fallback: '@' + slug(CONFIG.brandName) },
+    facebook:  { id: 'social-facebook',  handleId: 'social-facebook-handle',  fallback: CONFIG.brandName },
+    instagram: { id: 'social-instagram', handleId: 'social-instagram-handle', fallback: '@' + slug(CONFIG.brandName) },
+    tiktok:    { id: 'social-tiktok',    handleId: 'social-tiktok-handle',    fallback: '@' + slug(CONFIG.brandName) },
+  };
+  Object.entries(socialMap).forEach(([key, cfg]) => {
+    const url = CONFIG[key];
+    const linkEl   = document.getElementById(cfg.id);
+    const handleEl = document.getElementById(cfg.handleId);
+    if (linkEl) linkEl.href = url || '#';
+    if (handleEl) handleEl.textContent = url ? extractHandle(url, key) : cfg.fallback;
+  });
+  const emailLink = document.getElementById('contact-email-link');
+  const emailText = document.getElementById('contact-email-text');
+  if (CONFIG.email) {
+    if (emailLink) emailLink.href = 'mailto:' + CONFIG.email;
+    if (emailText) emailText.textContent = CONFIG.email;
+  } else {
+    if (emailLink) emailLink.style.display = 'none';
+  }
+  const copy = document.getElementById('footer-copy');
+  if (copy) copy.textContent = `© ${new Date().getFullYear()} ${CONFIG.brandName}. All rights reserved.`;
+  if (CONFIG.stats) {
+    const statEls = document.querySelectorAll('.hero-stat-num');
+    const vals = Object.values(CONFIG.stats);
+    statEls.forEach((el, i) => { if (vals[i] !== undefined) el.textContent = vals[i]; });
+  }
+  ['telegram','facebook','instagram','tiktok'].forEach(key => {
+    if (!CONFIG[key]) {
+      const el = document.getElementById('social-' + key);
+      if (el) el.style.opacity = '0.4';
+    }
+  });
+}
+
+let currentLang = CONFIG.language || 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = LANG[lang];
+  if (!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('.mentor-name-inline').forEach(el => el.textContent = CONFIG.mentorName);
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isEn = btn.textContent.includes('EN');
+    btn.classList.toggle('active', (lang === 'en' && isEn) || (lang === 'fil' && !isEn));
+  });
+  document.documentElement.lang = lang === 'fil' ? 'tl' : 'en';
+  setDirection(direction);
+}
+
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 60; i++) {
+    particles.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.5+0.3, dx: (Math.random()-0.5)*0.25, dy: (Math.random()-0.5)*0.25, alpha: Math.random()*0.5+0.1 });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(212,175,55,${p.alpha})`; ctx.fill();
+      p.x += p.dx; p.y += p.dy;
+      if (p.x < 0 || p.x > W) p.dx *= -1;
+      if (p.y < 0 || p.y > H) p.dy *= -1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+function initScroll() {
+  const navbar = document.getElementById('navbar');
+  const backTop = document.getElementById('back-top');
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    navbar.classList.toggle('scrolled', scrollY > 40);
+    backTop.classList.toggle('visible', scrollY > 400);
+    progressBar.style.width = ((scrollY / docH) * 100) + '%';
+  }, { passive: true });
+}
+
+function initFadeIn() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => {
+    if (el.closest('#hero')) return;
+    observer.observe(el);
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function toggleMenu(forceClose) {
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger-btn');
+  const isOpen = menu.classList.contains('open');
+  if (forceClose || isOpen) { menu.classList.remove('open'); btn.classList.remove('open'); }
+  else { menu.classList.add('open'); btn.classList.add('open'); }
+}
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger-btn');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) toggleMenu(true);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  applyConfig();
+  setLang(currentLang);
+  initParticles();
+  initScroll();
+  initFadeIn();
+  calculate();
+});
+</script>
+</body>
+</html>
