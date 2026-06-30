@@ -851,6 +851,7 @@
     <li><a href="#learn" data-i18n="nav_learn">Learn</a></li>
     <li><a href="#features" data-i18n="nav_why">Why Us</a></li>
     <li><a href="#broker" data-i18n="nav_broker">ACCM</a></li>
+    <li><a href="#copytrading" data-i18n="nav_copytrading">Copy Trading</a></li>
     <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
     <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
   </ul>
@@ -861,7 +862,7 @@
     </div>
     <a href="#" id="nav-cta-btn" class="btn-nav-cta" target="_blank" rel="noopener">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      <span data-i18n="cta_open">Open an Account</span>
+      <span data-i18n="cta_open">Open Account</span>
     </a>
     <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -873,9 +874,10 @@
   <a href="#learn" onclick="toggleMenu()" data-i18n="nav_learn">Learn</a>
   <a href="#features" onclick="toggleMenu()" data-i18n="nav_why">Why Us</a>
   <a href="#broker" onclick="toggleMenu()" data-i18n="nav_broker">ACCM</a>
+  <a href="#copytrading" onclick="toggleMenu()" data-i18n="nav_copytrading">Copy Trading</a>
   <a href="#faq" onclick="toggleMenu()" data-i18n="nav_faq">FAQ</a>
   <a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">Contact</a>
-  <a href="#" id="mobile-cta" target="_blank" rel="noopener" style="color: var(--gold); font-weight: 700;" data-i18n="cta_open">Open anAccount →</a>
+  <a href="#" id="mobile-cta" target="_blank" rel="noopener" style="color: var(--gold); font-weight: 700;" data-i18n="cta_open">Open Account →</a>
   <div style="display:flex; gap: 0.75rem; align-items: center; padding-top: 0.5rem;">
     <span style="font-size:0.75rem; color: var(--text-muted);">Language:</span>
     <div class="lang-switcher">
@@ -888,7 +890,7 @@
 <div id="sticky-cta">
   <a href="#" id="sticky-cta-link" target="_blank" rel="noopener">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    <span data-i18n="cta_open">Open an Account</span>
+    <span data-i18n="cta_open">Open Account</span>
   </a>
 </div>
 
@@ -1163,6 +1165,55 @@
 
 <hr class="section-divider" />
 
+<!-- COPY TRADING -->
+<section id="copytrading" class="section-pad">
+  <div class="container">
+    <div class="fade-in" style="max-width: 640px;">
+      <span class="eyebrow" data-i18n="ct_eyebrow">Done-For-You Option</span>
+      <h2 class="section-title" data-i18n="ct_title">GoldForge FX Copy Trading</h2>
+      <p class="section-sub" data-i18n="ct_sub">Prefer to let an experienced trader manage the execution? Our copy trading service mirrors trades directly to your account in real time.</p>
+    </div>
+
+    <div class="broker-inner" style="grid-template-columns: 1.1fr 0.9fr;">
+      <div>
+        <ul class="broker-points fade-in fade-in-delay-1">
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="ctp1">Trades are copied automatically to your account — no need to watch charts all day.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="ctp2">Minimum starting capital of $300 to join the copy trading program.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="ctp3">Your funds stay in your own ACCM account — full control and visibility, always.</span></li>
+          <li><span class="broker-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="ctp4">Ideal for busy individuals who want gold market exposure without active trading.</span></li>
+        </ul>
+
+        <div class="fade-in fade-in-delay-2" style="padding: 1rem; background: var(--gold-muted); border: 1px solid var(--border-gold); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+          <strong style="color: var(--gold);" data-i18n="ct_risk_label">Risk Disclaimer:</strong>
+          <span data-i18n="ct_risk_text"> Copy trading does not guarantee profits. Only invest money you can afford to lose. Past performance of copied trades is not indicative of future results.</span>
+        </div>
+
+        <a href="#contact" class="btn btn-primary btn-lg fade-in fade-in-delay-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          <span data-i18n="ct_cta">Message Us on Instagram for Details</span>
+        </a>
+      </div>
+
+      <div class="broker-visual">
+        <div class="broker-stat-card fade-in">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+          <div><div class="broker-stat-num">$300</div><div class="broker-stat-label" data-i18n="ct_stat1_label">Minimum to Start Copying</div></div>
+        </div>
+        <div class="broker-stat-card fade-in fade-in-delay-1">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div><div class="broker-stat-num" data-i18n="ct_stat2_num">Hands-Off</div><div class="broker-stat-label" data-i18n="ct_stat2_label">Trades Copied Automatically</div></div>
+        </div>
+        <div class="broker-stat-card fade-in fade-in-delay-2">
+          <div class="broker-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div><div class="broker-stat-num" data-i18n="ct_stat3_num">Risk Applies</div><div class="broker-stat-label" data-i18n="ct_stat3_label">Trading Involves Real Risk</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
 <section id="calculator" class="section-pad">
   <div class="container">
     <div class="fade-in calc-wrapper">
@@ -1307,6 +1358,15 @@
           <div class="social-handle" id="social-instagram-handle">@k.rzxx</div>
         </div>
       </a>
+      <a href="#" id="social-instagram-2" target="_blank" rel="noopener" class="social-card" style="width: 100%; max-width: 320px;">
+        <div class="social-icon ig">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div>
+          <div class="social-label">Instagram</div>
+          <div class="social-handle" id="social-instagram-2-handle">@mico___sangco</div>
+        </div>
+      </a>
     </div>
 
     <div class="fade-in fade-in-delay-3" style="text-align:center; margin-top: 2rem;">
@@ -1357,6 +1417,7 @@ const CONFIG = {
   telegram: "",
   facebook: "",
   instagram: "https://www.instagram.com/k.rzxx?igsh=MTRyZXpidGoyaTVrbw%3D%3D&utm_source=qr",
+  instagram2: "https://www.instagram.com/mico___sangco",
   tiktok: "",
   email: "",
   logoText: "GoldForge FX",
@@ -1369,7 +1430,7 @@ const CONFIG = {
 const LANG = {
   en: {
     nav_learn: "Learn", nav_why: "Why Us", nav_broker: "ACCM", nav_faq: "FAQ", nav_contact: "Contact",
-    cta_open: "Open an Account", cta_learn: "Learn Forex", cta_contact: "Contact Me",
+    cta_open: "Open Account", cta_learn: "Learn Forex", cta_contact: "Contact Me",
     hero_badge: "Live Trading Community",
     hero_title_1: "Trade Gold.", hero_title_2: "Build Wealth.", hero_title_3: "Grow Together.",
     hero_sub: "GoldForge FX guides beginners and experienced traders through the world of Forex and gold markets — with free education, expert signals, and a community that actually helps each other win.",
@@ -1407,6 +1468,20 @@ const LANG = {
     disclosure_text: " GoldForge FX uses an affiliate link for ACCM. If you open an account through our link, we may receive a commission. This does not affect your trading conditions or the fees you pay.",
     bs1_num: "Regulated", bs1_label: "Licensed & Compliant Broker", bs2_label: "Professional Trading Platforms",
     bs3_num: "Low Spreads", bs3_label: "Tight XAUUSD Pricing", bs4_num: "Low Minimum", bs4_label: "Start Small, Build Discipline",
+    nav_copytrading: "Copy Trading",
+    ct_eyebrow: "Done-For-You Option",
+    ct_title: "GoldForge FX Copy Trading",
+    ct_sub: "Prefer to let an experienced trader manage the execution? Our copy trading service mirrors trades directly to your account in real time.",
+    ctp1: "Trades are copied automatically to your account — no need to watch charts all day.",
+    ctp2: "Minimum starting capital of $300 to join the copy trading program.",
+    ctp3: "Your funds stay in your own ACCM account — full control and visibility, always.",
+    ctp4: "Ideal for busy individuals who want gold market exposure without active trading.",
+    ct_risk_label: "Risk Disclaimer:",
+    ct_risk_text: " Copy trading does not guarantee profits. Only invest money you can afford to lose. Past performance of copied trades is not indicative of future results.",
+    ct_cta: "Message Us on Instagram for Details",
+    ct_stat1_label: "Minimum to Start Copying",
+    ct_stat2_num: "Hands-Off", ct_stat2_label: "Trades Copied Automatically",
+    ct_stat3_num: "Risk Applies", ct_stat3_label: "Trading Involves Real Risk",
     calc_eyebrow: "Tool", calc_title: "Gold Profit / Loss Calculator",
     calc_sub: "Enter your trade details below and instantly see how much you could gain or lose. Perfect for understanding lot sizes before trading.",
     calc_direction_label: "Trade Direction",
@@ -1449,7 +1524,7 @@ const LANG = {
   },
   fil: {
     nav_learn: "Matuto", nav_why: "Bakit Kami", nav_broker: "ACCM", nav_faq: "FAQ", nav_contact: "Kausapin Kami",
-    cta_open: "Gumawa ng Account", cta_learn: "Matuto ng Forex", cta_contact: "Contact Us",
+    cta_open: "Buksan ang Account", cta_learn: "Matuto ng Forex", cta_contact: "Contact Us",
     hero_badge: "Live Trading Community",
     hero_title_1: "Trade ng Gold.", hero_title_2: "Magpalago ng Pera.", hero_title_3: "Sabay-sabay Tayong Umangat.",
     hero_sub: "Tinutulungan ng GoldForge FX ang mga beginners at experienced traders sa mundo ng Forex at gold. May free education, expert signals, at isang community na nagtutulungang manalo.",
@@ -1486,6 +1561,20 @@ const LANG = {
     disclosure_text: " Gumagamit ang GoldForge FX ng affiliate link para sa ACCM. Kung mag-open ka ng account gamit ang link namin, makakatanggap kami ng commission nang walang dagdag na bayad sayo.",
     bs1_num: "Regulado", bs1_label: "Licensed & Regulated", bs2_label: "Professional Trading Platforms",
     bs3_num: "Mababang Spreads", bs3_label: "Tight XAUUSD Spreads", bs4_num: "Low Minimum", bs4_label: "Simulan sa Maliit para sa Real Emotions",
+    nav_copytrading: "Copy Trading",
+    ct_eyebrow: "Gawa Para Sayo",
+    ct_title: "GoldForge FX Copy Trading",
+    ct_sub: "Mas gusto mo bang ipaubaya na lang sa experienced trader ang pag-eexecute? Direktang kino-copy ng aming copy trading service ang mga trade papunta sa account mo in real time.",
+    ctp1: "Awtomatikong nako-copy ang mga trade sa account mo — hindi mo na kailangang panoorin ang charts buong araw.",
+    ctp2: "Minimum na $300 na puhunan para sumali sa copy trading program.",
+    ctp3: "Nananatili ang pera mo sa sarili mong ACCM account — buong kontrol at visibility, palagi.",
+    ctp4: "Perfect para sa mga busy na gustong ma-expose sa gold market nang hindi aktibong nagte-trade.",
+    ct_risk_label: "Risk Disclaimer:",
+    ct_risk_text: " Hindi ginagarantiya ng copy trading ang kita. Mag-invest lamang ng perang afford mong mawala. Ang past performance ng mga na-copy na trade ay hindi guarantee ng future results.",
+    ct_cta: "Mag-message sa Instagram Para sa Detalye",
+    ct_stat1_label: "Minimum Para Magsimula",
+    ct_stat2_num: "Hands-Off", ct_stat2_label: "Awtomatikong Kino-copy ang Trades",
+    ct_stat3_num: "May Risk", ct_stat3_label: "May Totoong Risk sa Trading",
     calc_eyebrow: "Tool", calc_title: "Gold Profit / Loss Calculator",
     calc_sub: "Ilagay ang iyong trade details at makita agad kung magkano ang kikitain o matatalo. Para maintindihan mo ang lot sizes bago mag-trade.",
     calc_direction_label: "Direksyon ng Trade",
@@ -1607,17 +1696,18 @@ function applyConfig() {
     if (el) el.href = CONFIG.affiliateLink || '#';
   });
   const socialMap = {
-    telegram:  { id: 'social-telegram',  handleId: 'social-telegram-handle',  fallback: '@' + slug(CONFIG.brandName) },
-    facebook:  { id: 'social-facebook',  handleId: 'social-facebook-handle',  fallback: CONFIG.brandName },
-    instagram: { id: 'social-instagram', handleId: 'social-instagram-handle', fallback: '@' + slug(CONFIG.brandName) },
-    tiktok:    { id: 'social-tiktok',    handleId: 'social-tiktok-handle',    fallback: '@' + slug(CONFIG.brandName) },
+    telegram:   { id: 'social-telegram',    handleId: 'social-telegram-handle',    fallback: '@' + slug(CONFIG.brandName) },
+    facebook:   { id: 'social-facebook',    handleId: 'social-facebook-handle',    fallback: CONFIG.brandName },
+    instagram:  { id: 'social-instagram',   handleId: 'social-instagram-handle',   fallback: '@' + slug(CONFIG.brandName) },
+    instagram2: { id: 'social-instagram-2', handleId: 'social-instagram-2-handle', fallback: '@' + slug(CONFIG.brandName), extractAs: 'instagram' },
+    tiktok:     { id: 'social-tiktok',      handleId: 'social-tiktok-handle',      fallback: '@' + slug(CONFIG.brandName) },
   };
   Object.entries(socialMap).forEach(([key, cfg]) => {
     const url = CONFIG[key];
     const linkEl   = document.getElementById(cfg.id);
     const handleEl = document.getElementById(cfg.handleId);
     if (linkEl) linkEl.href = url || '#';
-    if (handleEl) handleEl.textContent = url ? extractHandle(url, key) : cfg.fallback;
+    if (handleEl) handleEl.textContent = url ? extractHandle(url, cfg.extractAs || key) : cfg.fallback;
   });
   const emailLink = document.getElementById('contact-email-link');
   const emailText = document.getElementById('contact-email-text');
